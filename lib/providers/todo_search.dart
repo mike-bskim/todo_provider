@@ -1,14 +1,15 @@
+// 41. TodoSearchState and TodoSearch
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 class TodoSearchState extends Equatable {
   final String searchTerm;
-  TodoSearchState({
+  const TodoSearchState({
     required this.searchTerm,
   });
 
   factory TodoSearchState.initial() {
-    return TodoSearchState(searchTerm: '');
+    return const TodoSearchState(searchTerm: '');
   }
 
   @override

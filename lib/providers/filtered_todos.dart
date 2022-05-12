@@ -1,3 +1,4 @@
+// 44. FilteredTodosState and FilteredTodos ChangeNotifier
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -5,40 +6,41 @@ import '../models/todo_model.dart';
 import 'providers.dart';
 
 class FilteredTodosState extends Equatable {
-  final List<Todo> filterdTodos;
-  FilteredTodosState({
-    required this.filterdTodos,
+  final List<Todo> filteredTodos;
+  const FilteredTodosState({
+    required this.filteredTodos,
   });
 
   factory FilteredTodosState.initial() {
-    return FilteredTodosState(filterdTodos: []);
+    return const FilteredTodosState(filteredTodos: []);
   }
 
   @override
-  List<Object> get props => [filterdTodos];
+  List<Object> get props => [filteredTodos];
 
   @override
   bool get stringify => true;
 
+
   FilteredTodosState copyWith({
-    List<Todo>? filterdTodos,
+    List<Todo>? filteredTodos,
   }) {
     return FilteredTodosState(
-      filterdTodos: filterdTodos ?? this.filterdTodos,
+      filteredTodos: filteredTodos ?? this.filteredTodos,
     );
   }
 }
 
 class FilteredTodos with ChangeNotifier {
-  // FilteredTodosState _state = FilteredTodosState.initial();
-  late FilteredTodosState _state;
-  final List<Todo> initialFilteredTodos;
-  FilteredTodos({
-    required this.initialFilteredTodos,
-  }) {
-    print('initialFilteredTodos: $initialFilteredTodos');
-    _state = FilteredTodosState(filterdTodos: initialFilteredTodos);
-  }
+  FilteredTodosState _state = FilteredTodosState.initial();
+  // late FilteredTodosState _state;
+  // final List<Todo> initialFilteredTodos;
+  // FilteredTodos({
+  //   required this.initialFilteredTodos,
+  // }) {
+  //   print('initialFilteredTodos: $initialFilteredTodos');
+  //   _state = FilteredTodosState(filteredTodos: initialFilteredTodos);
+  // }
   FilteredTodosState get state => _state;
 
   void update(
@@ -70,7 +72,7 @@ class FilteredTodos with ChangeNotifier {
           .toList();
     }
 
-    _state = _state.copyWith(filterdTodos: _filteredTodos);
+    _state = _state.copyWith(filteredTodos: _filteredTodos);
     notifyListeners();
   }
 }

@@ -1,3 +1,4 @@
+// 42. TodoListState and TodoList ChangeNotifier
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -5,16 +6,17 @@ import '../models/todo_model.dart';
 
 class TodoListState extends Equatable {
   final List<Todo> todos;
-  TodoListState({
+  const TodoListState({
     required this.todos,
   });
 
   factory TodoListState.initial() {
-    return TodoListState(todos: [
-      Todo(id: '1', desc: 'Clean the room'),
-      Todo(id: '2', desc: 'Wash the dish'),
-      Todo(id: '3', desc: 'Do homework'),
-    ]);
+    return const TodoListState(todos: []);
+    // return TodoListState(todos: [
+    //   Todo(id: '1', desc: 'Clean the room'),
+    //   Todo(id: '2', desc: 'Wash the dish'),
+    //   Todo(id: '3', desc: 'Do homework'),
+    // ]);
   }
 
   @override
@@ -22,6 +24,12 @@ class TodoListState extends Equatable {
 
   @override
   bool get stringify => true;
+
+
+  // @override
+  // String toString() {
+  //   return 'aa TodoListState{todos: $todos}';
+  // }
 
   TodoListState copyWith({
     List<Todo>? todos,
@@ -37,11 +45,17 @@ class TodoList with ChangeNotifier {
   TodoListState get state => _state;
 
   void addTodo(String todoDesc) {
-    final newTodo = Todo(desc: todoDesc);
+    int? newNum;
+    if(_state.todos.isEmpty){
+      newNum = 1;
+    } else {
+      newNum = int.parse(_state.todos.last.id)+1;
+    }
+    final newTodo = Todo(id: newNum.toString(),desc: todoDesc);
     final newTodos = [..._state.todos, newTodo];
 
     _state = _state.copyWith(todos: newTodos);
-    print(_state);
+    // debugPrint('added: ' + _state.toString());
     notifyListeners();
   }
 

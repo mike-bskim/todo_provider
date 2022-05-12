@@ -1,3 +1,4 @@
+// 45. Injecting Providers
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<TodoList, ActiveTodoCount>(
           create: (context) => ActiveTodoCount(
-            initialActiveTodoCount: context.read<TodoList>().state.todos.length,
+            // initialActiveTodoCount: context.read<TodoList>().state.todos.length,
           ),
           update: (
             BuildContext context,
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider3<TodoFilter, TodoSearch, TodoList,
             FilteredTodos>(
           create: (context) => FilteredTodos(
-            initialFilteredTodos: context.read<TodoList>().state.todos,
+            // initialFilteredTodos: context.read<TodoList>().state.todos,
           ),
           update: (
             BuildContext context,

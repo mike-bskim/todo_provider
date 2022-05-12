@@ -1,3 +1,4 @@
+// 43. ActiveTodoCountState and ActiveTodoCount
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -6,12 +7,12 @@ import 'providers.dart';
 
 class ActiveTodoCountState extends Equatable {
   final int activeTodoCount;
-  ActiveTodoCountState({
+  const ActiveTodoCountState({
     required this.activeTodoCount,
   });
 
   factory ActiveTodoCountState.initial() {
-    return ActiveTodoCountState(activeTodoCount: 0);
+    return const ActiveTodoCountState(activeTodoCount: 0);
   }
 
   @override
@@ -30,26 +31,26 @@ class ActiveTodoCountState extends Equatable {
 }
 
 class ActiveTodoCount with ChangeNotifier {
-  // ActiveTodoCountState _state = ActiveTodoCountState.initial();
-  late ActiveTodoCountState _state;
-  final int initialActiveTodoCount;
-  ActiveTodoCount({
-    required this.initialActiveTodoCount,
-  }) {
-    print('initialActiveTodoCount: $initialActiveTodoCount');
-    _state = ActiveTodoCountState(activeTodoCount: initialActiveTodoCount);
-  }
+  ActiveTodoCountState _state = ActiveTodoCountState.initial();
+  // late ActiveTodoCountState _state;
+  // final int initialActiveTodoCount;
+  // ActiveTodoCount({
+  //   required this.initialActiveTodoCount,
+  // }) {
+  //   debugPrint('initialActiveTodoCount: $initialActiveTodoCount');
+  //   _state = ActiveTodoCountState(activeTodoCount: initialActiveTodoCount);
+  // }
   ActiveTodoCountState get state => _state;
 
   void update(TodoList todoList) {
-    print(todoList.state);
+    debugPrint('count update(todoList.state): ' + todoList.state.toString());
     final int newActiveTodoCount = todoList.state.todos
         .where((Todo todo) => !todo.completed)
         .toList()
         .length;
 
     _state = _state.copyWith(activeTodoCount: newActiveTodoCount);
-    print(state);
+    debugPrint('count update(state): ' + state.toString());
     notifyListeners();
   }
 }
